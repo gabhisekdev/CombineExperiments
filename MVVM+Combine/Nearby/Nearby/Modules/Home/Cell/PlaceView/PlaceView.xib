@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaceView" customModule="Nearby" customModuleProvider="target">
+            <connections>
+                <outlet property="distanceLabel" destination="U7d-a2-RVm" id="fBg-NA-ju2"/>
+                <outlet property="placeImageView" destination="KBD-85-XFg" id="c0A-BG-RCh"/>
+                <outlet property="placeNameLabel" destination="Ezg-0e-yKY" id="L76-cB-eRv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KBD-85-XFg">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ezg-0e-yKY">
+                    <rect key="frame" x="10" y="172" width="295" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7d-a2-RVm">
+                    <rect key="frame" x="315" y="172" width="50" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="93Z-5X-N9E"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                    <color key="textColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCL-98-irl">
+                    <rect key="frame" x="-0.5" y="0.0" width="375" height="200"/>
+                    <connections>
+                        <action selector="placeViewTapped:" destination="-1" eventType="touchUpInside" id="Ge3-p1-1Hb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="U7d-a2-RVm" secondAttribute="trailing" constant="10" id="Cou-lS-gwZ"/>
+                <constraint firstItem="vCL-98-irl" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="DIM-Pr-q2k"/>
+                <constraint firstItem="KBD-85-XFg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="DxJ-FU-0YI"/>
+                <constraint firstItem="vCL-98-irl" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="HMb-TH-oty"/>
+                <constraint firstItem="KBD-85-XFg" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.8" id="Ncw-Uf-TA3"/>
+                <constraint firstItem="KBD-85-XFg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OB0-FP-SkI"/>
+                <constraint firstItem="U7d-a2-RVm" firstAttribute="leading" secondItem="Ezg-0e-yKY" secondAttribute="trailing" constant="10" id="QB3-9X-BZp"/>
+                <constraint firstItem="Ezg-0e-yKY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="QK9-ed-fDF"/>
+                <constraint firstItem="vCL-98-irl" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Uwb-as-z7r"/>
+                <constraint firstItem="KBD-85-XFg" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Vsf-gA-zlf"/>
+                <constraint firstItem="vCL-98-irl" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="jxb-jN-E3E"/>
+                <constraint firstItem="Ezg-0e-yKY" firstAttribute="top" secondItem="KBD-85-XFg" secondAttribute="bottom" constant="12" id="p5R-bG-01i"/>
+                <constraint firstItem="U7d-a2-RVm" firstAttribute="centerY" secondItem="Ezg-0e-yKY" secondAttribute="centerY" id="rOB-8R-yKw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="81.5" y="-21"/>
+        </view>
+    </objects>
+</document>

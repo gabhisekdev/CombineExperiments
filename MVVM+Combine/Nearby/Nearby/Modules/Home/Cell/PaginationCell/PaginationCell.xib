@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="245" id="KGk-i7-Jjw" customClass="PaginationCell" customModule="Nearby" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="519" height="245"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="519" height="245"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UkY-Ic-7c0" userLabel="MainView">
+                        <rect key="frame" x="0.0" y="0.0" width="519" height="233"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNJ-sP-usZ">
+                        <rect key="frame" x="10" y="16" width="499" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.52549019610000003" green="0.52549019610000003" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRi-Fm-iws">
+                        <rect key="frame" x="10" y="44" width="499" height="147.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="147.5" id="hjV-oR-AJu"/>
+                        </constraints>
+                    </scrollView>
+                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="G35-Zb-xMt">
+                        <rect key="frame" x="240" y="196" width="39" height="37"/>
+                        <color key="pageIndicatorTintColor" red="0.70980392160000005" green="0.72156862749999995" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="currentPageIndicatorTintColor" red="0.32156862749999998" green="0.62352941179999999" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </pageControl>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="qNJ-sP-usZ" secondAttribute="trailing" constant="10" id="2z9-Fz-qu1"/>
+                    <constraint firstItem="pRi-Fm-iws" firstAttribute="trailing" secondItem="qNJ-sP-usZ" secondAttribute="trailing" id="EPj-9f-IDr"/>
+                    <constraint firstItem="UkY-Ic-7c0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GwV-04-4QL"/>
+                    <constraint firstItem="UkY-Ic-7c0" firstAttribute="bottom" secondItem="G35-Zb-xMt" secondAttribute="bottom" id="Gy2-Ra-r1g"/>
+                    <constraint firstItem="G35-Zb-xMt" firstAttribute="top" secondItem="pRi-Fm-iws" secondAttribute="bottom" constant="4.5" id="K4w-Ba-Ma4"/>
+                    <constraint firstItem="pRi-Fm-iws" firstAttribute="leading" secondItem="qNJ-sP-usZ" secondAttribute="leading" id="VBo-20-ihm"/>
+                    <constraint firstAttribute="bottom" secondItem="G35-Zb-xMt" secondAttribute="bottom" constant="12" id="XMd-dm-iOW"/>
+                    <constraint firstItem="G35-Zb-xMt" firstAttribute="centerX" secondItem="qNJ-sP-usZ" secondAttribute="centerX" id="ai1-hO-QVD"/>
+                    <constraint firstItem="UkY-Ic-7c0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="c0G-Ls-k3n"/>
+                    <constraint firstAttribute="trailing" secondItem="UkY-Ic-7c0" secondAttribute="trailing" id="dAg-TV-c8o"/>
+                    <constraint firstItem="qNJ-sP-usZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="nRy-aZ-iaq"/>
+                    <constraint firstItem="pRi-Fm-iws" firstAttribute="top" secondItem="qNJ-sP-usZ" secondAttribute="bottom" constant="10" id="q46-cu-R94"/>
+                    <constraint firstItem="qNJ-sP-usZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xG4-8O-6bc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="mainView" destination="UkY-Ic-7c0" id="WA1-h0-Sho"/>
+                <outlet property="paginationIndicator" destination="G35-Zb-xMt" id="QGV-kr-kJA"/>
+                <outlet property="pagingScrollView" destination="pRi-Fm-iws" id="B1r-eC-5Fq"/>
+                <outlet property="titleLabel" destination="qNJ-sP-usZ" id="QFs-Nf-Wvw"/>
+            </connections>
+            <point key="canvasLocation" x="243.5" y="22.5"/>
+        </tableViewCell>
+    </objects>
+</document>
