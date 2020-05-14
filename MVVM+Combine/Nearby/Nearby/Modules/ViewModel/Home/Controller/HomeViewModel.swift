@@ -12,8 +12,8 @@ import Combine
 /// Enum to distinguish different home cell types
 enum HomeTableCellType {
     case pagingCell(model: PaginationCellVM)
-    case categoriesCell(model: TableCollectionCellVMRepresentable)
-    case placesCell(model: TableCollectionCellVMRepresentable)
+    case categoriesCell(model: TableCollectionCellRepresentable)
+    case placesCell(model: TableCollectionCellRepresentable)
 }
 
 class HomeViewModel {
@@ -93,7 +93,7 @@ class HomeViewModel {
     /// Provides a pagination cell type for each place type.
     private func cellTypeForPagingCell()->HomeTableCellType {
         var places = [NearbyPlace]()
-        for placeType in PlaceType.allPlaceType() {
+        for placeType in PlaceType.allCases {
             places.append(contentsOf: Helper.getTopPlace(paceType: placeType, topPlacesCount: 1))
         }
         let placeSelected: (NearbyPlace)->() = { [weak self] place in
@@ -106,7 +106,7 @@ class HomeViewModel {
     private func cellTypeForCategoriesCell()->HomeTableCellType {
         let categorieVM = CategoriesTableCollectionCellVM()
         categorieVM.cellSelected = { [weak self] indexPath in
-            self?.categoryChoosedSubject.send(PlaceType.allPlaceType()[indexPath.row])
+            self?.categoryChoosedSubject.send(PlaceType.allCases[indexPath.row])
         }
         return HomeTableCellType.categoriesCell(model: categorieVM)
     }
@@ -114,7 +114,7 @@ class HomeViewModel {
     /// Provides a placesCell type.
     private func cellTypeForPlaces()->[HomeTableCellType] {
         var cellTypes = [HomeTableCellType]()
-        let allPlaceTypes = PlaceType.allPlaceType()
+        let allPlaceTypes = PlaceType.allCases
         for type in allPlaceTypes {
             let topPlaces = Helper.getTopPlace(paceType: type, topPlacesCount: 3)
             let placeCellVM = PlacesTableCollectionCellVM(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText))

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
+class CategoriesTableCollectionCellVM: TableCollectionCellRepresentable {
     
     // Output
     var title: String = ""
@@ -25,7 +25,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     }
     
     private func prepareDataSource() {
-        for type in PlaceType.allPlaceType() {
+        for type in PlaceType.allCases {
             dataSource.append(ImageAndLabelCollectionCellVM(dataModel: ImageAndLabelCollectionCellModel(name: type.displayText, imageUrl: nil, iconAssetName: type.iconName)))
         }
     }

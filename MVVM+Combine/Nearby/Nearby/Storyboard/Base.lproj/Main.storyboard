@@ -26,6 +26,7 @@
                                     <constraint firstAttribute="height" constant="30" id="qdo-PT-pIb"/>
                                     <constraint firstAttribute="width" constant="30" id="zHx-dk-qmT"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" image="refresh"/>
                                 <connections>
                                     <action selector="refreshButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q8q-SJ-sFc"/>

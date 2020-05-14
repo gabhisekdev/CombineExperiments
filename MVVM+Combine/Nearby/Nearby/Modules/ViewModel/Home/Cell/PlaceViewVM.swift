@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-protocol PlaceViewVMRepresentable {
+protocol PlaceViewRepresentable {
     // Output
     var placeImageUrl: String { get }
     var name: String { get }
@@ -23,7 +23,7 @@ protocol PlaceViewVMRepresentable {
 }
 
 
-class PlaceViewVM: PlaceViewVMRepresentable {
+class PlaceViewVM: PlaceViewRepresentable {
     // Output
     var placeImageUrl: String {
         place.imageURL ?? ""

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TableCollectionCellVMRepresentable {
+protocol TableCollectionCellRepresentable {
     // Output
     var title: String { get }
     var numberOfItems: Int { get }
@@ -30,7 +30,7 @@ struct PlacesTableCollectionCellModel {
     }
 }
 
-class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
+class PlacesTableCollectionCellVM: TableCollectionCellRepresentable {
     
     var numberOfItems: Int = 0
     var title: String = ""

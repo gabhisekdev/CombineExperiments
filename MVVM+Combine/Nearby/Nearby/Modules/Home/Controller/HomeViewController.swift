@@ -89,7 +89,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a category cell.
-    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -97,7 +97,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a places cell.
-    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)

@@ -30,7 +30,7 @@ class ImageAndLabelCollectionCellVM {
     
     private func configureOutput() {
         imageURL = dataModel.imageUrl
-        text = dataModel.name ?? ""
+        text = dataModel.name 
         assetName = dataModel.iconAssetName
     }
     
