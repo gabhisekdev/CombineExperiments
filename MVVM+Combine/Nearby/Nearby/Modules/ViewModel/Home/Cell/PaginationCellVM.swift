@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import Combine
 
 class PaginationCellVM {
+    private var subscriptions = Set<AnyCancellable>()
     
     // Output
     var numberOfPages = 0
@@ -18,11 +20,13 @@ class PaginationCellVM {
     private var dataSource = [NearbyPlace]()
     
     // Events
-    var placeSelected: (NearbyPlace)->()?
+    var placeSelected: AnyPublisher<NearbyPlace, Never> {
+        placeSelectedSubject.eraseToAnyPublisher()
+    }
+    private let placeSelectedSubject = PassthroughSubject<NearbyPlace, Never>()
     
-    init(data: [NearbyPlace], placeSelected: @escaping (NearbyPlace)->()) {
+    init(data: [NearbyPlace]) {
         dataSource = data
-        self.placeSelected = placeSelected
         configureOutput()
     }
     
@@ -34,9 +38,13 @@ class PaginationCellVM {
     func viewModelForPlaceView(position: Int)->PlaceViewVM {
         let place = dataSource[position]
         let placeViewVM = PlaceViewVM(place: place)
-        placeViewVM.placesViewSelected = { [weak self] in
-            self?.placeSelected(place)
+        
+        placeViewVM.placesViewSelected
+            .sink { [weak self] in
+            self?.placeSelectedSubject.send(place)
         }
+        .store(in: &subscriptions)
+        
         return placeViewVM
     }
     

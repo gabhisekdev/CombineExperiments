@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import Combine
 
 class PlaceTableCellVM {
-    
+    private var subscriptions = Set<AnyCancellable>()
     private var place: NearbyPlace!
     
     var placeViewVM: PlaceViewVM!
-    var placeSelected: (NearbyPlace)->() = { _ in }
+    var placeSelected: AnyPublisher<NearbyPlace, Never> {
+        placeSelectedSubject.eraseToAnyPublisher()
+    }
+    let placeSelectedSubject = PassthroughSubject<NearbyPlace, Never>()
     
     init(place: NearbyPlace) {
         self.place = place
@@ -22,10 +26,12 @@ class PlaceTableCellVM {
     
     private func preparePlaceViewVM() {
         placeViewVM = PlaceViewVM(place: place)
-        placeViewVM.placesViewSelected = { [weak self] in
-            guard let _self = self else { return }
-            _self.placeSelected(_self.place)
+        placeViewVM.placesViewSelected
+            .sink { [weak self] in
+            guard let self = self else { return }
+                self.placeSelectedSubject.send(self.place)
         }
+        .store(in: &subscriptions)
     }
     
 }

@@ -44,7 +44,6 @@
 		93FDAC2520A950E800750B1D /* PlacesTableCollectionCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FDAC2420A950E800750B1D /* PlacesTableCollectionCellVM.swift */; };
 		93FDAC2720A950FD00750B1D /* PlaceViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FDAC2620A950FD00750B1D /* PlaceViewVM.swift */; };
 		93FDAC2A20AA7F0300750B1D /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FDAC2920AA7F0300750B1D /* Helper.swift */; };
-		93FDAC2D20AA7F8C00750B1D /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FDAC2C20AA7F8C00750B1D /* AppData.swift */; };
 		9648C79AAFCA08ADA44B48E8 /* Pods_NearbyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF893099E683E5215C57C22 /* Pods_NearbyTests.framework */; };
 		9E593F08CEF66783BE3ABC0D /* Pods_Nearby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBF01FFBDCD702DF27A7C81 /* Pods_Nearby.framework */; };
 /* End PBXBuildFile section */
@@ -116,7 +115,6 @@
 		93FDAC2420A950E800750B1D /* PlacesTableCollectionCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlacesTableCollectionCellVM.swift; path = ../../ViewModel/Home/Cell/PlacesTableCollectionCellVM.swift; sourceTree = "<group>"; };
 		93FDAC2620A950FD00750B1D /* PlaceViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceViewVM.swift; path = ../../../ViewModel/Home/Cell/PlaceViewVM.swift; sourceTree = "<group>"; };
 		93FDAC2920AA7F0300750B1D /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		93FDAC2C20AA7F8C00750B1D /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		9BCF51E687CFB91F0AC0C9C1 /* Pods-NearbyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NearbyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NearbyTests/Pods-NearbyTests.release.xcconfig"; sourceTree = "<group>"; };
 		ABBF01FFBDCD702DF27A7C81 /* Pods_Nearby.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nearby.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5DCFBB5C86F39C1FCAF6492 /* Pods_NearbyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NearbyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -420,7 +418,6 @@
 			isa = PBXGroup;
 			children = (
 				93FDAC2920AA7F0300750B1D /* Helper.swift */,
-				93FDAC2C20AA7F8C00750B1D /* AppData.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -668,7 +665,6 @@
 				93FDAC1720A877BC00750B1D /* CollectionTableCell.swift in Sources */,
 				930FE4AF20A088E5009924CA /* AppDelegate.swift in Sources */,
 				93FDAC2720A950FD00750B1D /* PlaceViewVM.swift in Sources */,
-				93FDAC2D20AA7F8C00750B1D /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

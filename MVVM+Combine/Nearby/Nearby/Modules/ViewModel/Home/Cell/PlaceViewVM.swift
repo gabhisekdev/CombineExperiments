@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 protocol PlaceViewRepresentable {
     // Output
@@ -18,8 +19,7 @@ protocol PlaceViewRepresentable {
     // Input
     func placesViewPressed()
     
-    // Event
-    var placesViewSelected: () -> () { get }
+    var placesViewSelected: AnyPublisher<Void, Never> { get }
 }
 
 
@@ -39,7 +39,10 @@ class PlaceViewVM: PlaceViewRepresentable {
     private var place: NearbyPlace!
     
     // Event
-    var placesViewSelected: () -> () = { }
+    var placesViewSelected: AnyPublisher<Void, Never> {
+        placesViewSelectedSubject.eraseToAnyPublisher()
+    }
+    private let placesViewSelectedSubject = PassthroughSubject<Void, Never>()
     
     init(place: NearbyPlace) {
         self.place = place
@@ -53,7 +56,7 @@ class PlaceViewVM: PlaceViewRepresentable {
     }
     
     func placesViewPressed() {
-        placesViewSelected()
+        placesViewSelectedSubject.send(())
     }
     
 }

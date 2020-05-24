@@ -9,15 +9,6 @@
 import Foundation
 import UIKit
 
-class Helper {
-    
-    static func getTopPlace(paceType: PlaceType, topPlacesCount: Int) -> [NearbyPlace] {
-        let places = AppData.sharedData.allPlaces.filter { $0.type == paceType }
-        return Array(places.prefix(topPlacesCount))
-    }
-    
-}
-
 class ActivityIndicator {
     
     static let sharedIndicator = ActivityIndicator()

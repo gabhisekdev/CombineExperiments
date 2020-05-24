@@ -21,6 +21,7 @@ class HomeViewModel {
     
     /// Data source for the home page table view.
     private var tableDataSource: [HomeTableCellType] = [HomeTableCellType]()
+    private var allPlaces = [NearbyPlace]()
     
     // MARK: Input
     private var viewLoaded: AnyPublisher<Void, Never> = PassthroughSubject<Void, Never>().eraseToAnyPublisher()
@@ -34,11 +35,9 @@ class HomeViewModel {
     var placeChoosed: AnyPublisher<NearbyPlace, Never> {
         placeChoosedSubject.eraseToAnyPublisher()
     }
-    
     var categoryChoosed: AnyPublisher<PlaceType, Never> {
         categoryChoosedSubject.eraseToAnyPublisher()
     }
-    
     var reloadPlaceList: AnyPublisher<Result<Void, NearbyAPIError>, Never> {
         reloadPlaceListSubject.eraseToAnyPublisher()
     }
@@ -68,14 +67,15 @@ class HomeViewModel {
     }
     
     private func fetchAppData() {
-        AppData.sharedData.resetData()
+        allPlaces.removeAll()
         let placeWebservice = PlaceWebService()
+        
         placeWebservice
             .fetchAllPlaceList()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] places in
-                    AppData.sharedData.allPlaces.append(contentsOf: places)
+                    self?.allPlaces.append(contentsOf: places)
                     self?.prepareTableDataSource()
                     self?.reloadPlaceListSubject.send(.success(()))
             })
@@ -94,20 +94,30 @@ class HomeViewModel {
     private func cellTypeForPagingCell()->HomeTableCellType {
         var places = [NearbyPlace]()
         for placeType in PlaceType.allCases {
-            places.append(contentsOf: Helper.getTopPlace(paceType: placeType, topPlacesCount: 1))
+            places.append(contentsOf: getTopPlace(paceType: placeType, topPlacesCount: 1))
         }
         let placeSelected: (NearbyPlace)->() = { [weak self] place in
             self?.placeChoosedSubject.send(place)
         }
-        return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeSelected: placeSelected))
+        
+        let paginationCellVM = PaginationCellVM(data: places)
+        paginationCellVM.placeSelected
+            .sink(receiveValue: placeSelected)
+            .store(in: &subscriptions)
+        
+        return HomeTableCellType.pagingCell(model: paginationCellVM)
     }
     
     /// Provides a placesCell type.
     private func cellTypeForCategoriesCell()->HomeTableCellType {
         let categorieVM = CategoriesTableCollectionCellVM()
-        categorieVM.cellSelected = { [weak self] indexPath in
+        
+        categorieVM.cellSelected
+            .sink { [weak self] indexPath in
             self?.categoryChoosedSubject.send(PlaceType.allCases[indexPath.row])
         }
+        .store(in: &subscriptions)
+        
         return HomeTableCellType.categoriesCell(model: categorieVM)
     }
     
@@ -116,11 +126,15 @@ class HomeViewModel {
         var cellTypes = [HomeTableCellType]()
         let allPlaceTypes = PlaceType.allCases
         for type in allPlaceTypes {
-            let topPlaces = Helper.getTopPlace(paceType: type, topPlacesCount: 3)
+            let topPlaces = getTopPlace(paceType: type, topPlacesCount: 3)
             let placeCellVM = PlacesTableCollectionCellVM(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText))
-            placeCellVM.cellSelected = { [weak self] indexPath in
+            
+            placeCellVM.cellSelected
+                .sink { [weak self] indexPath in
                 self?.placeChoosedSubject.send(topPlaces[indexPath.item])
             }
+            .store(in: &subscriptions)
+            
             if topPlaces.count > 0 {
                 cellTypes.append(HomeTableCellType.placesCell(model: placeCellVM))
             }
@@ -131,6 +145,16 @@ class HomeViewModel {
     /// Provides the view with appropriate cell type corresponding to an index.
     func cellType(forIndex indexPath: IndexPath)->HomeTableCellType {
         tableDataSource[indexPath.row]
+    }
+    
+    func getTopPlace(paceType: PlaceType, topPlacesCount: Int) -> [NearbyPlace] {
+        let places = allPlaces.filter { $0.type == paceType }
+        return Array(places.prefix(topPlacesCount))
+    }
+    
+    func getPlaceListViewModel(placeType: PlaceType) -> PlaceListViewModel {
+        let places = allPlaces.filter { $0.type == placeType }
+        return PlaceListViewModel(allPlaces: places, placeType: placeType)
     }
     
 }

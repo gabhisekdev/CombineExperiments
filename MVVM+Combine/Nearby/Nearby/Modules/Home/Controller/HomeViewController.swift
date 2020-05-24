@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
     /// Handler to observe notification events from LocationManager.
     @objc private func locationAvailable(notification: Notification) {
         // No need to refresh the screen automatically if data is already present.
-        guard AppData.sharedData.allPlaces.isEmpty, !isRefreshInProgress else { return }
+        guard !isRefreshInProgress else { return }
         refreshScreen()
     }
 }
@@ -116,7 +116,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     private func navigateToPlaceListWithPlaceType(_ placeType: PlaceType) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceListController") as! PlaceListController
-        let placeViewVM = PlaceListViewModel(placeType: placeType)
+        let placeViewVM = viewModel.getPlaceListViewModel(placeType: placeType)
         controller.prepareView(viewModel: placeViewVM)
         navigationController?.pushViewController(controller, animated: true)
     }

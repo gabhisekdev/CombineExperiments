@@ -60,7 +60,7 @@ class CollectionTableCell: ReusableTableViewCell {
 extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems
+        viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,7 +74,7 @@ extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width - 120)/CGFloat(viewModel.numberOfItems), height: collectionView.frame.size.height)
+        CGSize(width: (UIScreen.main.bounds.width - 120)/CGFloat(viewModel.numberOfItems), height: collectionView.frame.size.height)
     }
     
 }

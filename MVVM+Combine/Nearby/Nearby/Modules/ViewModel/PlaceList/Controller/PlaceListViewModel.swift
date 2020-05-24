@@ -7,26 +7,27 @@
 //
 
 import Foundation
+import Combine
 
 class PlaceListViewModel {
+    private var subscriptions = Set<AnyCancellable>()
     // Output
     var numberOfRows = 0
     var title = ""
     
-    private var placeType: PlaceType!
+    private let placeType: PlaceType
     private var dataSource = [PlaceTableCellVM]()
     
     // Event
-    var placeSelected: (NearbyPlace)->() = { _ in }
-    
-    init(placeType: PlaceType) {
-        self.placeType = placeType
-        prepareTableDataSource()
-        configureOutput()
+    var placeSelected: AnyPublisher<NearbyPlace, Never> {
+        placeSelectedSubject.eraseToAnyPublisher()
     }
+    private let placeSelectedSubject = PassthroughSubject<NearbyPlace, Never>()
     
-    private func prepareTableDataSource() {
-        dataSource = AppData.sharedData.allPlaces.filter { $0.type == placeType }.map {  return PlaceTableCellVM(place: $0) }
+    init(allPlaces: [NearbyPlace], placeType: PlaceType) {
+        self.placeType = placeType
+        dataSource = allPlaces.map {  return PlaceTableCellVM(place: $0) }
+        configureOutput()
     }
     
     private func configureOutput() {
@@ -36,7 +37,12 @@ class PlaceListViewModel {
     
     func cellViewModel(indexPath: IndexPath)->PlaceTableCellVM {
         let cellViewModel = dataSource[indexPath.row]
-        cellViewModel.placeSelected = placeSelected
+        let placeSelectedCallback: (NearbyPlace) -> Void = { [weak self] place in
+            self?.placeSelectedSubject.send(place)
+        }
+        cellViewModel.placeSelected
+            .sink(receiveValue: placeSelectedCallback)
+            .store(in: &subscriptions)
         return cellViewModel
     }
     

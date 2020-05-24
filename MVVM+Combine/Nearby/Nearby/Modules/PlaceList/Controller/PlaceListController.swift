@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Combine
 
 class PlaceListController: UIViewController {
+    private var subscriptions = Set<AnyCancellable>()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -40,34 +42,31 @@ class PlaceListController: UIViewController {
     }
     
     private func observeEvents() {
-        viewModel.placeSelected = { [weak self] place in
+        let placeSelectedCallback: (NearbyPlace) -> Void = { [weak self] place in
             DispatchQueue.main.async {
                 self?.navigateToPlaceDetailScreenWithPlace(place)
             }
         }
+        viewModel.placeSelected.sink(receiveValue: placeSelectedCallback).store(in: &subscriptions)
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 // MARK: Routing
 extension PlaceListController {
-    
     private func navigateToPlaceDetailScreenWithPlace(_ place: NearbyPlace) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
         let placeViewVM = PlaceDetailVM(place: place)
         controller.prepareView(viewModel: placeViewVM)
         navigationController?.pushViewController(controller, animated: true)
     }
-    
 }
 
 // MARK: UITableViewDataSource
 extension PlaceListController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRows
     }
@@ -77,5 +76,4 @@ extension PlaceListController: UITableViewDataSource {
         cell.prepareCell(viewModel: viewModel.cellViewModel(indexPath: indexPath))
         return cell
     }
-    
 }
