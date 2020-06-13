@@ -55,6 +55,9 @@ class ImageAndLabelCollectionCell: ReusableCollectionViewCell {
         }
         .sink { [weak self] imageURL in
             self?.imageView.kf.setImage(with: imageURL, placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                if error != nil {
+                    self?.imageView.image = UIImage(named : "placeIcon")
+                }
             })
         }
         .store(in: &subscriptions)

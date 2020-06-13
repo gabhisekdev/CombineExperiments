@@ -61,8 +61,12 @@ class PlaceView: UIView {
         }
         .sink { [weak self] imageURL in
             self?.placeImageView.kf.setImage(with: imageURL, placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
-            })
+                if error != nil {
+                    self?.placeImageView.image = UIImage(named : "placeIcon")
+                }
+                })
         }
+        .store(in: &subscriptions)
     }
     
     @IBAction func placeViewTapped(_ sender: Any) {
