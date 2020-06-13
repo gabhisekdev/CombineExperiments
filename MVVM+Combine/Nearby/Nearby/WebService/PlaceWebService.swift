@@ -25,7 +25,7 @@ struct PlaceWebService {
         let userLat = String(format:"%3f", LocationManager.sharedManager.latitude)
         let userLong = String(format:"%3f", LocationManager.sharedManager.longitude)
 
-        let url = WebServiceConstants.baseURL + WebServiceConstants.placesAPI + "location=\(userLat),\(userLong)&radius=200&type=\(placeType.rawValue)&key=\(googleApiKey)"
+        let url = WebServiceConstants.baseURL + WebServiceConstants.placesAPI + "location=\(userLat),\(userLong)&radius=1000&type=\(placeType.rawValue)&key=\(googleApiKey)"
 
         let placeResponsePublisher: AnyPublisher<PlacesResponse, NearbyAPIError> = WebServiceManager.sharedService.requestAPI(url: url)
         

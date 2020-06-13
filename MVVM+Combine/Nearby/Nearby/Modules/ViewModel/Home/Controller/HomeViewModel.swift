@@ -51,6 +51,9 @@ class HomeViewModel {
         self.loadData = loadData
         self.loadData
             .setFailureType(to: NearbyAPIError.self)
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.allPlaces.removeAll()
+            })
             .flatMap { _ -> AnyPublisher<[NearbyPlace], NearbyAPIError> in
                 let placeWebservice = PlaceWebService()
                 return placeWebservice
@@ -59,7 +62,6 @@ class HomeViewModel {
             .receive(on: DispatchQueue.main)
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.tableDataSource.removeAll()
-                self?.allPlaces.removeAll()
             })
             .sink(receiveCompletion: { _ in },
               receiveValue: { [weak self] places in

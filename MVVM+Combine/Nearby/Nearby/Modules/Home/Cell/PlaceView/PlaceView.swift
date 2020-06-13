@@ -43,8 +43,6 @@ class PlaceView: UIView {
             view.topAnchor.constraint(equalTo: topAnchor),
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
-        placeImageView.contentMode = .scaleAspectFill
     }
     
     func preparePlaceView(viewModel: PlaceViewVM) {
