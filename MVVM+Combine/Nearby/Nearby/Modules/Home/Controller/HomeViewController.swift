@@ -18,14 +18,13 @@ class HomeViewController: UIViewController {
     /// Flag to safeguard an one time refresh of screen in case of location update.
     var isRefreshInProgress = false
     
-    private var homeViewLoadedSubject = PassthroughSubject<Void,Never>()
-    private var refreshButtonTappedSubject = PassthroughSubject<Void,Never>()
-    
+    private var loadDataSubject = PassthroughSubject<Void,Never>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
         observeEvents()
-        homeViewLoadedSubject.send()
+        loadDataSubject.send()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,7 +44,7 @@ class HomeViewController: UIViewController {
     
     /// Function to observe various event call backs from the viewmodel as well as Notifications.
     private func observeEvents() {
-        viewModel.attachViewEventListener(viewLoaded: homeViewLoadedSubject.eraseToAnyPublisher(), refreshButtonTapped: refreshButtonTappedSubject.eraseToAnyPublisher())
+        viewModel.attachViewEventListener(loadData: loadDataSubject.eraseToAnyPublisher())
         
         viewModel.reloadPlaceList
             .sink(receiveCompletion: { completion in
@@ -77,7 +76,7 @@ class HomeViewController: UIViewController {
     private func refreshScreen() {
         isRefreshInProgress = true
         ActivityIndicator.sharedIndicator.displayActivityIndicator(onView: view)
-        refreshButtonTappedSubject.send()
+        loadDataSubject.send()
     }
     
     /// Provides a paging cell.

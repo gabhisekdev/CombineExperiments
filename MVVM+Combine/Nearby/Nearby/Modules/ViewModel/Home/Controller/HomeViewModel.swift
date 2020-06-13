@@ -24,8 +24,7 @@ class HomeViewModel {
     private var allPlaces = [NearbyPlace]()
     
     // MARK: Input
-    private var viewLoaded: AnyPublisher<Void, Never> = PassthroughSubject<Void, Never>().eraseToAnyPublisher()
-    private var refreshButtonTapped: AnyPublisher<Void, Never> = PassthroughSubject<Void, Never>().eraseToAnyPublisher()
+    private var loadData: AnyPublisher<Void, Never> = PassthroughSubject<Void, Never>().eraseToAnyPublisher()
     
     // MARK: Output
     var numberOfRows: Int {
@@ -48,11 +47,9 @@ class HomeViewModel {
     
     init() { }
     
-    func attachViewEventListener(viewLoaded: AnyPublisher<Void, Never>, refreshButtonTapped: AnyPublisher<Void, Never>) {
-        self.viewLoaded = viewLoaded
-        self.refreshButtonTapped = refreshButtonTapped
-        
-        self.viewLoaded
+    func attachViewEventListener(loadData: AnyPublisher<Void, Never>) {
+        self.loadData = loadData
+        self.loadData
             .setFailureType(to: NearbyAPIError.self)
             .flatMap { _ -> AnyPublisher<[NearbyPlace], NearbyAPIError> in
                 let placeWebservice = PlaceWebService()
@@ -60,22 +57,10 @@ class HomeViewModel {
                     .fetchAllPlaceList()
             }
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in },
-              receiveValue: { [weak self] places in
-                self?.allPlaces.append(contentsOf: places)
-                self?.prepareTableDataSource()
-                self?.reloadPlaceListSubject.send(.success(()))
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.tableDataSource.removeAll()
+                self?.allPlaces.removeAll()
             })
-            .store(in: &subscriptions)
-
-        self.refreshButtonTapped
-            .setFailureType(to: NearbyAPIError.self)
-            .flatMap { _ -> AnyPublisher<[NearbyPlace], NearbyAPIError> in
-                let placeWebservice = PlaceWebService()
-                return placeWebservice
-                    .fetchAllPlaceList()
-            }
-            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in },
               receiveValue: { [weak self] places in
                 self?.allPlaces.append(contentsOf: places)
@@ -87,7 +72,6 @@ class HomeViewModel {
     
     /// Prepare the tableDataSource
     private func prepareTableDataSource() {
-        tableDataSource.removeAll()
         tableDataSource.append(cellTypeForPagingCell())
         tableDataSource.append(cellTypeForCategoriesCell())
         tableDataSource.append(contentsOf: cellTypeForPlaces())
