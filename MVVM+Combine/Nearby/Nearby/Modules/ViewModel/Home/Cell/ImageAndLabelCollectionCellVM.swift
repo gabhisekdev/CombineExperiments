@@ -19,9 +19,9 @@ class ImageAndLabelCollectionCellVM {
     private var dataModel: ImageAndLabelCollectionCellModel!
     
     // Output
-    var imageURL: String?
-    var text: String!
-    var assetName: String?
+    @Published private(set) var imageURL: String?
+    @Published private(set) var text: String?
+    @Published private(set) var assetName: String?
     
     init(dataModel: ImageAndLabelCollectionCellModel) {
         self.dataModel = dataModel

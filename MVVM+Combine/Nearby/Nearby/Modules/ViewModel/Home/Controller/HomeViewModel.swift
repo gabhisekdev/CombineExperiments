@@ -53,31 +53,34 @@ class HomeViewModel {
         self.refreshButtonTapped = refreshButtonTapped
         
         self.viewLoaded
-            .sink { [weak self] in
-                self?.fetchAppData()
-        }
-        .store(in: &subscriptions)
-        
-        self.refreshButtonTapped
-            .sink { [weak self] in
-                self?.tableDataSource.removeAll()
-                self?.fetchAppData()
-        }
-        .store(in: &subscriptions)
-    }
-    
-    private func fetchAppData() {
-        allPlaces.removeAll()
-        let placeWebservice = PlaceWebService()
-        
-        placeWebservice
-            .fetchAllPlaceList()
+            .setFailureType(to: NearbyAPIError.self)
+            .flatMap { _ -> AnyPublisher<[NearbyPlace], NearbyAPIError> in
+                let placeWebservice = PlaceWebService()
+                return placeWebservice
+                    .fetchAllPlaceList()
+            }
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] places in
-                    self?.allPlaces.append(contentsOf: places)
-                    self?.prepareTableDataSource()
-                    self?.reloadPlaceListSubject.send(.success(()))
+              receiveValue: { [weak self] places in
+                self?.allPlaces.append(contentsOf: places)
+                self?.prepareTableDataSource()
+                self?.reloadPlaceListSubject.send(.success(()))
+            })
+            .store(in: &subscriptions)
+
+        self.refreshButtonTapped
+            .setFailureType(to: NearbyAPIError.self)
+            .flatMap { _ -> AnyPublisher<[NearbyPlace], NearbyAPIError> in
+                let placeWebservice = PlaceWebService()
+                return placeWebservice
+                    .fetchAllPlaceList()
+            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in },
+              receiveValue: { [weak self] places in
+                self?.allPlaces.append(contentsOf: places)
+                self?.prepareTableDataSource()
+                self?.reloadPlaceListSubject.send(.success(()))
             })
             .store(in: &subscriptions)
     }
