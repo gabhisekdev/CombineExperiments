@@ -50,7 +50,7 @@
                         <constraint firstAttribute="trailing" secondItem="AQN-5m-9cF" secondAttribute="trailing" id="aP8-d8-SbU"/>
                     </constraints>
                 </stackView>
-                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCL-98-irl">
+                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCL-98-irl">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
                     <connections>
                         <action selector="placeViewTapped:" destination="-1" eventType="touchUpInside" id="Ge3-p1-1Hb"/>

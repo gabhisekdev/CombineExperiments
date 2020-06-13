@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="PlaceTableCell" customModule="Nearby" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="330" height="79"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="220" id="KGk-i7-Jjw" customClass="PlaceTableCell" customModule="Nearby" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="337" height="158"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="330" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="337" height="158"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7R-2s-20u" customClass="PlaceView" customModule="Nearby" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="330" height="67"/>
+                        <rect key="frame" x="0.0" y="0.0" width="337" height="158"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="P7R-2s-20u" secondAttribute="bottom" constant="12" id="CjL-2A-qX2"/>
-                    <constraint firstAttribute="trailing" secondItem="P7R-2s-20u" secondAttribute="trailing" id="Ogj-V8-xqh"/>
-                    <constraint firstItem="P7R-2s-20u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Pon-XP-kLf"/>
-                    <constraint firstAttribute="trailing" secondItem="P7R-2s-20u" secondAttribute="trailing" id="aUR-kU-hIe"/>
-                    <constraint firstItem="P7R-2s-20u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="byB-cI-glr"/>
-                    <constraint firstItem="P7R-2s-20u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="o1v-kG-mCs"/>
-                    <constraint firstItem="P7R-2s-20u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oWJ-5T-fIg"/>
+                    <constraint firstItem="P7R-2s-20u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2SP-h9-sjJ"/>
+                    <constraint firstAttribute="bottom" secondItem="P7R-2s-20u" secondAttribute="bottom" id="48Z-rO-LvP"/>
+                    <constraint firstAttribute="trailing" secondItem="P7R-2s-20u" secondAttribute="trailing" id="8C2-45-oMw"/>
+                    <constraint firstItem="P7R-2s-20u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fJy-I6-Igh"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,7 +34,7 @@
             <connections>
                 <outlet property="placeView" destination="P7R-2s-20u" id="njP-so-ihw"/>
             </connections>
-            <point key="canvasLocation" x="95" y="71.5"/>
+            <point key="canvasLocation" x="100" y="113.3433283358321"/>
         </tableViewCell>
     </objects>
 </document>
