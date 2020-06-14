@@ -56,14 +56,9 @@ class PlaceView: UIView {
             viewModel.$distance.assign(to: \.text!, on: distanceLabel)
         ]
         
-        viewModel.$placeImageUrl.compactMap {
-            return URL(string: $0)
-        }
+        viewModel.$placeImageUrl.compactMap { URL(string: $0) }
         .sink { [weak self] imageURL in
             self?.placeImageView.kf.setImage(with: imageURL, placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
-                if error != nil {
-                    self?.placeImageView.image = UIImage(named : "placeIcon")
-                }
                 })
         }
         .store(in: &subscriptions)

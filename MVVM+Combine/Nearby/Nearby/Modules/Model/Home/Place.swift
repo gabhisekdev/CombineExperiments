@@ -81,7 +81,7 @@ struct NearbyPlace: Decodable {
         guard let photoRef = photos?.first?.photoReference else {
            return nil
         }
-        return WebServiceConstants.baseURL + WebServiceConstants.imageAPI + "maxwidth=180&" + "photoreference=\(photoRef)&key=\(googleApiKey)"
+        return WebServiceConstants.baseURL + WebServiceConstants.imageAPI + "maxwidth=300&" + "photoreference=\(photoRef)&key=\(googleApiKey)"
     }
     
     var location: CLLocation? {

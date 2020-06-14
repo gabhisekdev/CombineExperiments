@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class CollectionTableCell: ReusableTableViewCell {
     

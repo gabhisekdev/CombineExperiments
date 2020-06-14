@@ -21,12 +21,8 @@ protocol TableCollectionCellRepresentable {
  }
 
 struct PlacesTableCollectionCellModel {
-    var places  = [NearbyPlace]()
-    var title = ""
-    init(places: [NearbyPlace], title: String) {
-        self.places = places
-        self.title = title
-    }
+    let places: [NearbyPlace]
+    let title: String
 }
 
 class PlacesTableCollectionCellVM: TableCollectionCellRepresentable {

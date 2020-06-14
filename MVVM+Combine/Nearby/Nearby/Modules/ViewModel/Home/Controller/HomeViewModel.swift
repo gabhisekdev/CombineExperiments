@@ -101,8 +101,7 @@ class HomeViewModel {
     private func cellTypeForCategoriesCell()->HomeTableCellType {
         let categorieVM = CategoriesTableCollectionCellVM()
         
-        categorieVM.cellSelected
-            .sink { [weak self] indexPath in
+        categorieVM.cellSelected.sink { [weak self] indexPath in
             self?.categoryChoosedSubject.send(PlaceType.allCases[indexPath.row])
         }
         .store(in: &subscriptions)
@@ -118,8 +117,7 @@ class HomeViewModel {
             let topPlaces = getTopPlace(paceType: type, topPlacesCount: 3)
             let placeCellVM = PlacesTableCollectionCellVM(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText))
             
-            placeCellVM.cellSelected
-                .sink { [weak self] indexPath in
+            placeCellVM.cellSelected.sink { [weak self] indexPath in
                 self?.placeChoosedSubject.send(topPlaces[indexPath.item])
             }
             .store(in: &subscriptions)
@@ -145,5 +143,4 @@ class HomeViewModel {
         let places = allPlaces.filter { $0.type == placeType }
         return PlaceListViewModel(allPlaces: places, placeType: placeType)
     }
-    
 }

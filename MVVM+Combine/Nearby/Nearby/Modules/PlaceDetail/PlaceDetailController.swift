@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Kingfisher
 import Combine
 
 class PlaceDetailController: UIViewController {
@@ -18,6 +19,7 @@ class PlaceDetailController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var openStatusLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var placeImageView: UIImageView!
     
     private var viewModel: PlaceDetailViewModel!
     
@@ -35,12 +37,19 @@ class PlaceDetailController: UIViewController {
     }
     
     private func setUpUI() {
-        let title = viewModel.title
         subscriptions = [
             viewModel.$title.assign(to: \.text!, on: titleLabel),
-            viewModel.$openStatus.assign(to: \.text!, on: openStatusLabel),
-            viewModel.$distance.assign(to: \.text!, on: distanceLabel)
+            viewModel.$distance.assign(to: \.text!, on: distanceLabel),
+            viewModel.$isOpen.map { $0.openStatusText }.assign(to: \.text!, on: openStatusLabel),
+            viewModel.$isOpen.map { $0 ? UIColor.green : UIColor.red }.assign(to: \.textColor!, on: openStatusLabel)
         ]
+        
+        viewModel.$placeImageUrl.compactMap { URL(string: $0) }
+        .sink { [weak self] imageURL in
+            self?.placeImageView.kf.setImage(with: imageURL, placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                })
+        }
+        .store(in: &subscriptions)
         
         viewModel.location.compactMap { location -> (MKCoordinateRegion, MKPointAnnotation)? in
             guard let lat = location?.coordinate.latitude,

@@ -48,7 +48,7 @@ class HomeViewController: UIViewController {
         
         viewModel.reloadPlaceList
             .sink(receiveCompletion: { completion in
-            
+            // Handle the error
         }) { [weak self] _ in
             ActivityIndicator.sharedIndicator.hideActivityIndicator()
             self?.tableView.reloadData()
@@ -147,4 +147,3 @@ extension HomeViewController: UITableViewDataSource {
         }
     }
 }
-
