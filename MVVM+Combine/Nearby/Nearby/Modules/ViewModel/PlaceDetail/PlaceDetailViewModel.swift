@@ -19,7 +19,7 @@ class PlaceDetailViewModel {
     @Published private(set) var placeImageUrl: String = ""
     @Published private(set) var location: CLLocation? = nil
     
-    private var place: NearbyPlace!
+    private let place: NearbyPlace
     
     init(place: NearbyPlace) {
         self.place = place
