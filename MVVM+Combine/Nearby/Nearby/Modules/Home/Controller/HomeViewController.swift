@@ -18,14 +18,13 @@ class HomeViewController: UIViewController {
     /// Flag to safeguard an one time refresh of screen in case of location update.
     var isRefreshInProgress = false
     
-    private var homeViewLoadedSubject = PassthroughSubject<Void,Never>()
-    private var refreshButtonTappedSubject = PassthroughSubject<Void,Never>()
-    
+    private var loadDataSubject = PassthroughSubject<Void,Never>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
-        observeEvents()
-        homeViewLoadedSubject.send()
+        setupBindings()
+        loadDataSubject.send()
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,12 +43,12 @@ class HomeViewController: UIViewController {
     }
     
     /// Function to observe various event call backs from the viewmodel as well as Notifications.
-    private func observeEvents() {
-        viewModel.attachViewEventListener(viewLoaded: homeViewLoadedSubject.eraseToAnyPublisher(), refreshButtonTapped: refreshButtonTappedSubject.eraseToAnyPublisher())
+    private func setupBindings() {
+        viewModel.attachViewEventListener(loadData: loadDataSubject.eraseToAnyPublisher())
         
         viewModel.reloadPlaceList
             .sink(receiveCompletion: { completion in
-            
+            // Handle the error
         }) { [weak self] _ in
             ActivityIndicator.sharedIndicator.hideActivityIndicator()
             self?.tableView.reloadData()
@@ -77,7 +76,7 @@ class HomeViewController: UIViewController {
     private func refreshScreen() {
         isRefreshInProgress = true
         ActivityIndicator.sharedIndicator.displayActivityIndicator(onView: view)
-        refreshButtonTappedSubject.send()
+        loadDataSubject.send()
     }
     
     /// Provides a paging cell.
@@ -89,7 +88,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a category cell.
-    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -97,7 +96,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a places cell.
-    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -107,7 +106,7 @@ class HomeViewController: UIViewController {
     /// Handler to observe notification events from LocationManager.
     @objc private func locationAvailable(notification: Notification) {
         // No need to refresh the screen automatically if data is already present.
-        guard AppData.sharedData.allPlaces.isEmpty, !isRefreshInProgress else { return }
+        guard !isRefreshInProgress else { return }
         refreshScreen()
     }
 }
@@ -116,14 +115,14 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     private func navigateToPlaceListWithPlaceType(_ placeType: PlaceType) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceListController") as! PlaceListController
-        let placeViewVM = PlaceListViewModel(placeType: placeType)
+        let placeViewVM = viewModel.getPlaceListViewModel(placeType: placeType)
         controller.prepareView(viewModel: placeViewVM)
         navigationController?.pushViewController(controller, animated: true)
     }
     
     private func navigateToPlaceDetailScreenWithPlace(_ place: NearbyPlace) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
-        let placeViewVM = PlaceDetailVM(place: place)
+        let placeViewVM = PlaceDetailViewModel(place: place)
         controller.prepareView(viewModel: placeViewVM)
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -148,4 +147,3 @@ extension HomeViewController: UITableViewDataSource {
         }
     }
 }
-

@@ -28,9 +28,7 @@ struct WebServiceConstants {
 class WebServiceManager: NSObject {
     
     static let sharedService = WebServiceManager()
-    
-    typealias WebServiceCompletionBlock = (_ data: [String:AnyObject]?,_ error: Error?)->Void
-    
+        
     enum HTTPMethodType: String {
         case POST = "POST"
         case GET = "GET"

@@ -7,36 +7,34 @@
 //
 
 import Foundation
+import Combine
 
-protocol TableCollectionCellVMRepresentable {
+protocol TableCollectionCellRepresentable {
     // Output
     var title: String { get }
     var numberOfItems: Int { get }
     func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM
+    var cellSelected: AnyPublisher<IndexPath, Never> { get }
     
     //Input
     func cellSelected(indexPath: IndexPath)
-    
-    // Event
-    var cellSelected: (IndexPath)->() { get }
  }
 
 struct PlacesTableCollectionCellModel {
-    var places  = [NearbyPlace]()
-    var title = ""
-    init(places: [NearbyPlace], title: String) {
-        self.places = places
-        self.title = title
-    }
+    let places: [NearbyPlace]
+    let title: String
 }
 
-class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
-    
+class PlacesTableCollectionCellVM: TableCollectionCellRepresentable {
     var numberOfItems: Int = 0
     var title: String = ""
-    var cellSelected: (IndexPath)->() = { _ in }
     private var dataModel: PlacesTableCollectionCellModel!
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
+    
+    var cellSelected: AnyPublisher<IndexPath, Never> {
+        cellSelctedSubject.eraseToAnyPublisher()
+    }
+    private let cellSelctedSubject = PassthroughSubject<IndexPath, Never>()
     
     init(dataModel: PlacesTableCollectionCellModel) {
         self.dataModel = dataModel
@@ -64,7 +62,7 @@ class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     }
     
     func cellSelected(indexPath: IndexPath) {
-        cellSelected(indexPath)
+        cellSelctedSubject.send(indexPath)
     }
     
 }

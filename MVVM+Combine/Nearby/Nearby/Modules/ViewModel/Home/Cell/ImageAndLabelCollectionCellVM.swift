@@ -19,9 +19,9 @@ class ImageAndLabelCollectionCellVM {
     private var dataModel: ImageAndLabelCollectionCellModel!
     
     // Output
-    var imageURL: String?
-    var text: String!
-    var assetName: String?
+    @Published private(set) var imageURL: String?
+    @Published private(set) var text: String?
+    @Published private(set) var assetName: String?
     
     init(dataModel: ImageAndLabelCollectionCellModel) {
         self.dataModel = dataModel
@@ -30,7 +30,7 @@ class ImageAndLabelCollectionCellVM {
     
     private func configureOutput() {
         imageURL = dataModel.imageUrl
-        text = dataModel.name ?? ""
+        text = dataModel.name 
         assetName = dataModel.iconAssetName
     }
     

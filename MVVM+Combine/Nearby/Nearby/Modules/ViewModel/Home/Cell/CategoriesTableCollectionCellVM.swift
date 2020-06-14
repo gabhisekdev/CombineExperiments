@@ -7,15 +7,20 @@
 //
 
 import Foundation
+import Combine
 
-class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
+class CategoriesTableCollectionCellVM: TableCollectionCellRepresentable {
     
     // Output
     var title: String = ""
     var numberOfItems: Int = 0
     
     // Events
-    var cellSelected: (IndexPath)->() = { _ in }
+    var cellSelected: AnyPublisher<IndexPath, Never> {
+        categoriesCellSelectedSubject.eraseToAnyPublisher()
+    }
+    
+    private var categoriesCellSelectedSubject = PassthroughSubject<IndexPath, Never>()
     
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
@@ -25,7 +30,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     }
     
     private func prepareDataSource() {
-        for type in PlaceType.allPlaceType() {
+        for type in PlaceType.allCases {
             dataSource.append(ImageAndLabelCollectionCellVM(dataModel: ImageAndLabelCollectionCellModel(name: type.displayText, imageUrl: nil, iconAssetName: type.iconName)))
         }
     }
@@ -40,7 +45,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     }
     
     func cellSelected(indexPath: IndexPath) {
-        cellSelected(indexPath)
+        categoriesCellSelectedSubject.send(indexPath)
     }
     
 }

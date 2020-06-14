@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class CollectionTableCell: ReusableTableViewCell {
     
@@ -14,7 +15,7 @@ class CollectionTableCell: ReusableTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var viewModel: TableCollectionCellVMRepresentable!
+    var viewModel: TableCollectionCellRepresentable!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +38,7 @@ class CollectionTableCell: ReusableTableViewCell {
         collectionView.reloadData()
     }
     
-    func prepareCell(viewModel: TableCollectionCellVMRepresentable) {
+    func prepareCell(viewModel: TableCollectionCellRepresentable) {
         self.viewModel = viewModel
         setUpUI()
         collectionView.reloadData()
@@ -60,7 +61,7 @@ class CollectionTableCell: ReusableTableViewCell {
 extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems
+        viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,7 +75,7 @@ extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width - 120)/CGFloat(viewModel.numberOfItems), height: collectionView.frame.size.height)
+        CGSize(width: (UIScreen.main.bounds.width - 120)/CGFloat(viewModel.numberOfItems), height: collectionView.frame.size.height)
     }
     
 }

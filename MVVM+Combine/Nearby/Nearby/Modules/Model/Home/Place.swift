@@ -81,7 +81,7 @@ struct NearbyPlace: Decodable {
         guard let photoRef = photos?.first?.photoReference else {
            return nil
         }
-        return WebServiceConstants.baseURL + WebServiceConstants.imageAPI + "maxwidth=180&" + "photoreference=\(photoRef)&key=\(googleApiKey)"
+        return WebServiceConstants.baseURL + WebServiceConstants.imageAPI + "maxwidth=300&" + "photoreference=\(photoRef)&key=\(googleApiKey)"
     }
     
     var location: CLLocation? {
@@ -105,7 +105,7 @@ struct NearbyPlace: Decodable {
         }
         
         let types = try container.decode([String].self, forKey: CodingKeys.types)
-        type = types.compactMap { PlaceType(rawValue: $0) }[0]
+        type = types.compactMap { PlaceType(rawValue: $0) }.first
         
         geometry = try container.decodeIfPresent(Geometry.self, forKey: CodingKeys.geometry)
     }
