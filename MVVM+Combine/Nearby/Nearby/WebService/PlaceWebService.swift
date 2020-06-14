@@ -28,7 +28,7 @@ struct PlaceWebService {
         let url = WebServiceConstants.baseURL + WebServiceConstants.placesAPI + "location=\(userLat),\(userLong)&radius=1000&type=\(placeType.rawValue)&key=\(googleApiKey)"
 
         let placeResponsePublisher: AnyPublisher<PlacesResponse, NearbyAPIError> = WebServiceManager.sharedService.requestAPI(url: url)
-        
+    
         return placeResponsePublisher.print("\n fetch web service")
             .map { $0.places }
             .eraseToAnyPublisher()

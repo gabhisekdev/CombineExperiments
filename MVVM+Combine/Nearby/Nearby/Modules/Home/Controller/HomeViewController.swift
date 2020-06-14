@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
-        observeEvents()
+        setupBindings()
         loadDataSubject.send()
     }
     
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Function to observe various event call backs from the viewmodel as well as Notifications.
-    private func observeEvents() {
+    private func setupBindings() {
         viewModel.attachViewEventListener(loadData: loadDataSubject.eraseToAnyPublisher())
         
         viewModel.reloadPlaceList

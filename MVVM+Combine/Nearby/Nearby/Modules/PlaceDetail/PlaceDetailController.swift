@@ -25,7 +25,7 @@ class PlaceDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpUI()
+        setupBindings()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +36,7 @@ class PlaceDetailController: UIViewController {
         self.viewModel = viewModel
     }
     
-    private func setUpUI() {
+    private func setupBindings() {
         subscriptions = [
             viewModel.$title.assign(to: \.text!, on: titleLabel),
             viewModel.$distance.assign(to: \.text!, on: distanceLabel),
@@ -51,7 +51,7 @@ class PlaceDetailController: UIViewController {
         }
         .store(in: &subscriptions)
         
-        viewModel.location.compactMap { location -> (MKCoordinateRegion, MKPointAnnotation)? in
+        viewModel.$location.compactMap { location -> (MKCoordinateRegion, MKPointAnnotation)? in
             guard let lat = location?.coordinate.latitude,
                 let long = location?.coordinate.longitude else { return nil }
             let center = CLLocationCoordinate2D(latitude: lat, longitude: long)

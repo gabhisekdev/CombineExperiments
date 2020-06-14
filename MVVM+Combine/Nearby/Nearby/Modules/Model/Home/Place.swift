@@ -105,7 +105,7 @@ struct NearbyPlace: Decodable {
         }
         
         let types = try container.decode([String].self, forKey: CodingKeys.types)
-        type = types.compactMap { PlaceType(rawValue: $0) }[0]
+        type = types.compactMap { PlaceType(rawValue: $0) }.first
         
         geometry = try container.decodeIfPresent(Geometry.self, forKey: CodingKeys.geometry)
     }

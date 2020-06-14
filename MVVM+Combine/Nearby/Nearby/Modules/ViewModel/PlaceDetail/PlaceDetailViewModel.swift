@@ -17,8 +17,7 @@ class PlaceDetailViewModel {
     @Published private(set) var distance = ""
     @Published private(set) var isOpen = false
     @Published private(set) var placeImageUrl: String = ""
-    
-    let location = CurrentValueSubject<CLLocation?, Never>(nil)
+    @Published private(set) var location: CLLocation? = nil
     
     private var place: NearbyPlace!
     
@@ -31,7 +30,7 @@ class PlaceDetailViewModel {
         title = place.name
         let openStat = place.openStatus ?? false
         isOpen = openStat
-        location.value = place.location
+        location = place.location
         placeImageUrl = place.imageURL ?? ""
         
         let currentLocation = CLLocation(latitude: LocationManager.sharedManager.latitude, longitude: LocationManager.sharedManager.longitude)
